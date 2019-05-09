@@ -10,27 +10,39 @@ Purpose - This program will perform three essential operations:
 
 '''
 
-import string
-gba_file = open('gettysburg.txt', 'r') #pulling in txt file
-counts = dict() #creating the dictionary
-for line in gba_file: #process_lines
-    line = line.translate(str.maketrans('', '', string.punctuation)) #removing spaces and puntuation
-    line = line.lower() #converting to lowercase
-    words = line.split()
-    for word in words:  #Counting the values in the dictionary
-        if word not in counts:
-            counts[word] = 1
-        else:
-            counts[word] += 1
+# Pull in text and read text file, process and clean up the file
+# so words can be counted.
+def main():
+    import string
+    counts = dict()
+    gba_file = open('gettysburg.txt', 'r')
 
-# Sort the dictionary by value
-lst = list()
-for key, val in list(counts.items()):
-    lst.append((val, key))
-lst.sort(reverse=True)
+    for line in gba_file:
+        line = line.translate(str.maketrans('', '', string.punctuation))
+        line = line.lower()
+        words = line.split()
+        for word in words:
+            if word not in counts:
+                counts[word] = 1
+            else:
+                counts[word] += 1
 
-# Print the occurrences
-print('Length of Dictionary:', (len(counts)))
-print('Count', 'Word')
-for key, val in lst[:]:
-    print(key, val)
+                # Descending sort the dictionary by value
+                def add_words():
+                    lst = list()
+                    for key, val in list(counts.items()):
+                        lst.append((val, key))
+                    lst.sort(reverse=True)
+                    for key, val in lst[:]:
+                        print(key, val)
+                #Output of dictionary total, count, and word
+                def print_pretty():
+                    print('Length of Dictionary:', (len(counts)))
+                    print('Count', 'Word')
+
+    print_pretty()
+    add_words()
+
+if __name__ == "__main__":
+    main()
+
